@@ -25,6 +25,7 @@ public:
     void setSceneRoot(Qt3DCore::QNode *sceneRoot);
     Qt3DRender::QRenderCapture *getRenderCapture();
     void setSize(const QSize &size);
+    OffscreenSurfaceFrameGraph *getOffscreenFrameGraph() const;
 
 private:
     // We need all of the following in order to render a scene:

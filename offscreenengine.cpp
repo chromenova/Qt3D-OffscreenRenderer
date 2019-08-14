@@ -75,3 +75,8 @@ void OffscreenEngine::setSize(const QSize &size)
 {
     offscreenFrameGraph->setSize(size);
 }
+
+OffscreenSurfaceFrameGraph *OffscreenEngine::getOffscreenFrameGraph() const
+{
+    return offscreenFrameGraph;
+}

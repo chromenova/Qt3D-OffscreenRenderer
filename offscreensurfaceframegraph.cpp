@@ -72,3 +72,8 @@ Qt3DCore::QNode *OffscreenSurfaceFrameGraph::getRenderTargetSelector()
 {
     return renderTargetSelector;
 }
+
+Qt3DRender::QClearBuffers *OffscreenSurfaceFrameGraph::getClearBuffers() const
+{
+    return clearBuffers;
+}
