@@ -1,0 +1,3 @@
+[submodule "external/Qt3D-OffscreenRenderer"]
+	path = external/Qt3D-OffscreenRenderer
+	url = https://github.com/chromenova/Qt3D-OffscreenRenderer.git
