@@ -40,10 +40,15 @@ void StardustQt3DOffscreen::captureFrames(float dt) {
 }
 
 void StardustQt3DOffscreen::onFrameRendered(Qt3DRender::QRenderCaptureReply *capture, VkImage *image) {
+    if(capture->image().width() == 0 || capture->image().height() == 0)
+        return;
+
     VkCommandBuffer commandBuffer = beginSingleTimeCommands(3);
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingBufferMemory;
-    VkDeviceSize imageSize = eyeDimensions.width()*eyeDimensions.height()*4;
+    VkDeviceSize imageSize = capture->image().sizeInBytes();
+    qDebug() << "Image size:" << imageSize;
+
     VkMemoryRequirements memRequirements;
 
     createBuffer(imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_CACHED_BIT, stagingBuffer, stagingBufferMemory, memRequirements);
@@ -77,21 +82,10 @@ void StardustQt3DOffscreen::onFrameRendered(Qt3DRender::QRenderCaptureReply *cap
                              ? memRequirements.size
                              : (memRequirements.size + memRequirements.alignment - align_mod);
 
-    uint *imgData = (uint*) malloc(sizeof (uint) * imageSize); // TODO: free somewhere
-
-    memset(imgData, 255, sizeof(uint) * imageSize);
-
-//    QByteArray arr;
-//    QBuffer buffer(&arr);
-//    buffer.open(QIODevice::WriteOnly);
-//    capture->image().save(&buffer);
-
     void* data = nullptr;
     vkMapMemory(graphics->openxr->vulkan->device, stagingBufferMemory, 0, imageSize, 0, &data);
-        memcpy(data, imgData, imageSize);
+        memcpy(data, capture->image().bits(), imageSize);
     vkUnmapMemory(graphics->openxr->vulkan->device, stagingBufferMemory);
-
-    free(imgData);
 
     VkBufferImageCopy region = {};
     region.bufferOffset = 0;
