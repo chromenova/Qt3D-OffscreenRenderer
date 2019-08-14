@@ -16,6 +16,10 @@ void StardustQt3DOffscreen::initialize() {
     leftEyeEngine->setSceneRoot(sceneRoot);
     rightEyeEngine->setSceneRoot(sceneRoot);
 
+    //Set the clear flags color to the scene
+    leftEyeEngine->getOffscreenFrameGraph()->getClearBuffers()->setClearColor(clearFlagsColor);
+    rightEyeEngine->getOffscreenFrameGraph()->getClearBuffers()->setClearColor(clearFlagsColor);
+
     //Create the frameAction and connect it to capturing the frames
 //    frameAction = new Qt3DLogic::QFrameAction(sceneRoot);
 //    connect(frameAction, &Qt3DLogic::QFrameAction::triggered, this, &StardustQt3DOffscreen::captureFrames);

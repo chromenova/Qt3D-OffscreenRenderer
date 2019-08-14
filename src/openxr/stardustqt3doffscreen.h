@@ -22,6 +22,8 @@ class StardustQt3DOffscreen : public QObject
 
     Q_PROPERTY(Qt3DRender::QCamera *leftEye MEMBER leftEye)
     Q_PROPERTY(Qt3DRender::QCamera *rightEye MEMBER rightEye)
+
+    Q_PROPERTY(QColor clearFlagsColor MEMBER clearFlagsColor)
 public:
     explicit StardustQt3DOffscreen(QObject *parent = nullptr);
     Q_INVOKABLE void initialize();
@@ -30,6 +32,8 @@ public:
 
     Qt3DRender::QCamera *leftEye = nullptr;
     Qt3DRender::QCamera *rightEye = nullptr;
+
+    QColor clearFlagsColor = QColor(255, 255, 255, 255);
 
     QSize eyeDimensions;
 

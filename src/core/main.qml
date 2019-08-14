@@ -47,6 +47,7 @@ WaylandCompositor {
         Offscreen.rightEye = sceneRoot.rightEye;
 
         Offscreen.graphics = OpenXRGraphics;
+        Offscreen.clearFlagsColor = Qt.rgba(1, 1, 1, 1);
         Offscreen.initialize();
     }
 
